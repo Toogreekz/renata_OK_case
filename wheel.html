@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Колесо Фортуны</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px 20px 100px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 50px auto;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: #fff;
+        }
+
+        .sector {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+            background: #ccc;
+        }
+
+        .sector:nth-child(1) { background: #cc3f02; transform: rotate(0deg); }
+        .sector:nth-child(2) { background: #cc5a02; transform: rotate(60deg); }
+        .sector:nth-child(3) { background: #cc7402; transform: rotate(120deg); }
+        .sector:nth-child(4) { background: #cc9602; transform: rotate(180deg); }
+        .sector:nth-child(5) { background: #ccb802; transform: rotate(240deg); }
+        .sector:nth-child(6) { background: #d63600; transform: rotate(300deg); }
+
+        .sector span {
+            position: absolute;
+            left: -60px;
+            top: 30px;
+            transform: rotate(45deg);
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 14px;
+            width: 120px;
+            text-align: center;
+            transform-origin: center;
+        }
+
+        .spin-button {
+            padding: 15px 40px;
+            font-size: 20px;
+            background: linear-gradient(45deg, #fc9b1c, #fc9b1c);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,184,148,0.3);
+            transition: 0.3s;
+        }
+
+        .spin-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,184,148,0.4);
+        }
+
+        .spin-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .result {
+            margin: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d3436;
+            text-align: center;
+            padding: 15px 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .arrow {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-top: 50px solid #ff7675;
+            z-index: 2;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .center-circle {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #2d3436;
+        }
+
+        .nav-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            background: none;
+        }
+
+        .nav-item img {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 4px;
+            transition: 0.3s;
+        }
+
+        .nav-item.active img {
+            filter: invert(40%) sepia(99%) saturate(1747%) hue-rotate(183deg) brightness(97%) contrast(89%);
+        }
+
+        .nav-item:hover img {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="wheel-container">
+        <div class="arrow"></div>
+        <div class="wheel" id="wheel">
+            <div class="center-circle">УДАЧА!</div>
+            <!-- Сектора -->
+            <div class="sector"><span>Стикерпак Хранители города</span></div>
+            <div class="sector"><span>Подарок ОК</span></div>
+            <div class="sector"><span>Билет на шоу ОК</span></div>
+            <div class="sector"><span>Подарок ОК</span></div>
+            <div class="sector"><span>Набор стикеров</span></div>
+            <div class="sector"><span>Статус Хранителя города</span></div>
+        </div>
+    </div>
+    
+    <button class="spin-button" id="spinButton">ПОЛУЧИТЬ ПРИЗ</button>
+    <div class="result" id="result"></div>
+
+    <div class="nav-buttons">
+        <button class="nav-item" onclick="window.location.href='index.html'">
+            <img src="assets/index.svg" alt="Форма">
+        </button>
+        <button class="nav-item" onclick="window.location.href='wheel.html'">
+            <img src="assets/wheel.svg" alt="Колесо">
+        </button>
+        <button class="nav-item" onclick="window.location.href='rating.html'">
+            <img src="assets/rating.svg" alt="Рейтинг">
+        </button>
+    </div>
+
+    <script>
+        const prizes = [
+            "Стикерпак Хранители города",
+            "Подарок ОК",
+            "Билет на шоу ОК",
+            "Подарок ОК",
+            "Набор стикеров",
+            "Статус Хранителя города"
+        ];
+
+        const wheel = document.getElementById('wheel');
+        const spinButton = document.getElementById('spinButton');
+        const resultElement = document.getElementById('result');
+        const sectorAngle = 60; // 360 / 6 = 60 градусов
+        let hasSpun = false;
+
+        spinButton.addEventListener('click', () => {
+            if(hasSpun) return;
+            
+            hasSpun = true;
+            spinButton.disabled = true;
+            
+            const extraSpins = 5;
+            const randomSector = Math.floor(Math.random() * prizes.length);
+            const targetAngle = (360 * extraSpins) + (randomSector * sectorAngle);
+            
+            wheel.style.transform = `rotate(${targetAngle}deg)`;
+            
+            setTimeout(() => {
+                resultElement.innerHTML = `🎉 Поздравляем!<br>${prizes[randomSector]}`;
+            }, 4000);
+        });
+    </script>
+</body>
+</html>

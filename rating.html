@@ -167,6 +167,22 @@
             text-decoration: underline;
         }
 
+        .spin-button {
+            padding: 15px 10px;
+            font-size: 20px;
+            background: linear-gradient(45deg, #fc9b1c, #fc9b1c);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: 0.3s;
+        }
+
+        .spin-button:hover {
+            transform: translateY(-2px);
+        }
+
         @media (max-width: 600px) {
             .place-card {
                 flex-direction: column !important;
@@ -182,9 +198,26 @@
                 margin-top: 10px;
             }
 
+            .spin-button {
+                font-size: 14px;
+                padding: 10px 8px;
+                margin-top: 0;
+                white-space: nowrap;
+            }
+
             .subtitle-row {
-                align-items: flex-start;
-                gap: 10px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin: 15px 0;
+            }
+
+            .subtitle-left,
+            .subtitle-right {
+                width: auto;
+                text-align: center;
+                flex: 1;
+                min-width: 48%;
             }
         }
     </style>
@@ -194,69 +227,65 @@
         <h1 class="rating-title">Топ Хранителей</h1>
         
         <div class="subtitle-row">
-            <span class="subtitle-left">Хранители моего города</span>
-            <a href="#first-block" class="subtitle-right">Места рядом</a>
+            
+            <span class="subtitle-left"><button class="spin-button">Хранители моего города</button></span>
+            <a href="#first-block" class="subtitle-right"><button class="spin-button">Места рядом</button></a>
         </div>
 
-        <!-- Место 1 -->
         <div class="place-card" id="first-block">
             <div class="image-block">
                 <img src="assets/1.png" alt="Санкт-Петербург">
             </div>
             <div class="content-block">
-                <div class="user-name">Иванова Анна Сергеевна</div>
+                <div class="user-name">Иванова Анна</div>
                 <div class="city">Санкт-Петербург</div>
                 <div class="description">Здесь ощущаешь всю красоту и силу природы! Рекомендую увидеть своими глазами!</div>
                 <a href="#" class="more-link">Посмотреть еще ></a>
             </div>
         </div>
 
-        <!-- Место 2 -->
         <div class="place-card">
             <div class="image-block">
                 <img src="assets/3.png" alt="Казань">
             </div>
             <div class="content-block">
-                <div class="user-name">Петров Дмитрий Игоревич</div>
+                <div class="user-name">Петров Дмитрий</div>
                 <div class="city">Казань</div>
                 <div class="description">Яркие краски вдохнули новую жизнь в это место! Уже планирую здесь фотосессию :)</div>
                 <a href="#" class="more-link">Посмотреть еще ></a>
             </div>
         </div>
 
-        <!-- Место 3 -->
         <div class="place-card">
             <div class="image-block">
                 <img src="assets/4.png" alt="Сочи">
             </div>
             <div class="content-block">
-                <div class="user-name">Смирнова Ольга Владимировна</div>
+                <div class="user-name">Смирнова Ольга</div>
                 <div class="city">Сочи</div>
                 <div class="description">Горный парк с захватывающими видами. Канатная дорога протяженностью 2 км над живописным ущельем!</div>
                 <a href="#" class="more-link">Посмотреть еще ></a>
             </div>
         </div>
 
-        <!-- Место 4 -->
         <div class="place-card">
             <div class="image-block">
                 <img src="assets/2.png" alt="Екатеринбург">
             </div>
             <div class="content-block">
-                <div class="user-name">Козлов Артем Александрович</div>
+                <div class="user-name">Козлов Артем</div>
                 <div class="city">Екатеринбург</div>
                 <div class="description">Современный арт-квартал с граффити и инсталляциями. Центр городской культуры и творчества.</div>
                 <a href="#" class="more-link">Посмотреть еще ></a>
             </div>
         </div>
 
-        <!-- Место 5 -->
         <div class="place-card">
             <div class="image-block">
                 <img src="assets/5.png" alt="Владивосток">
             </div>
             <div class="content-block">
-                <div class="user-name">Никитина Мария Павловна</div>
+                <div class="user-name">Филин Данила</div>
                 <div class="city">Владивосток</div>
                 <div class="description">Мост через бухту Золотой Рог. Ночная подсветка создает фантастические виды для фотографий.</div>
                 <a href="#" class="more-link">Посмотреть еще ></a>

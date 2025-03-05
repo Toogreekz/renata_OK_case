@@ -8,7 +8,7 @@
         body {
             margin: 0;
             padding: 20px 20px 100px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: #fff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -16,11 +16,19 @@
             font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
         }
 
+        .main-image {
+            width: min(90%, 500px);
+            height: auto;
+            margin: 40px 0;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
         .wheel-container {
             position: relative;
             width: 300px;
             height: 300px;
-            margin: 50px auto;
+            margin: 20px auto;
         }
 
         .wheel {
@@ -43,12 +51,12 @@
             background: #ccc;
         }
 
-        .sector:nth-child(1) { background: #cc3f02; transform: rotate(0deg); }
-        .sector:nth-child(2) { background: #cc5a02; transform: rotate(60deg); }
-        .sector:nth-child(3) { background: #cc7402; transform: rotate(120deg); }
-        .sector:nth-child(4) { background: #cc9602; transform: rotate(180deg); }
-        .sector:nth-child(5) { background: #ccb802; transform: rotate(240deg); }
-        .sector:nth-child(6) { background: #d63600; transform: rotate(300deg); }
+        .sector:nth-child(1) { background: #FFB200; transform: rotate(0deg); }
+        .sector:nth-child(2) { background: #FF7100; transform: rotate(60deg); }
+        .sector:nth-child(3) { background: #FF3161; transform: rotate(120deg); }
+        .sector:nth-child(4) { background: #73960E; transform: rotate(180deg); }
+        .sector:nth-child(5) { background: #C8E807; transform: rotate(240deg); }
+        .sector:nth-child(6) { background: #66CCFD; transform: rotate(300deg); }
 
         .sector span {
             position: absolute;
@@ -73,13 +81,11 @@
             color: white;
             cursor: pointer;
             margin-top: 30px;
-            box-shadow: 0 4px 15px rgba(0,184,148,0.3);
             transition: 0.3s;
         }
 
         .spin-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,184,148,0.4);
         }
 
         .spin-button:disabled {
@@ -169,14 +175,47 @@
         .nav-item:hover img {
             transform: translateY(-3px);
         }
+
+        @media (max-width: 992px) {
+            .main-image {
+                width: min(80%, 400px);
+                margin: 35px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-image {
+                width: min(95%, 350px);
+                margin: 30px 0;
+                border-radius: 15px;
+            }
+            
+            .wheel-container {
+                width: 320px;
+                height: 320px;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .main-image {
+                width: 600px;
+            }
+            
+            .wheel-container {
+                width: 400px;
+                height: 400px;
+            }
+        }
+
     </style>
 </head>
 <body>
+    <img src="assets/7.png" alt="Колесо Фортуны" class="main-image">
+
     <div class="wheel-container">
         <div class="arrow"></div>
         <div class="wheel" id="wheel">
             <div class="center-circle">УДАЧА!</div>
-            <!-- Сектора -->
             <div class="sector"><span>Стикерпак Хранители города</span></div>
             <div class="sector"><span>Подарок ОК</span></div>
             <div class="sector"><span>Билет на шоу ОК</span></div>
@@ -214,7 +253,7 @@
         const wheel = document.getElementById('wheel');
         const spinButton = document.getElementById('spinButton');
         const resultElement = document.getElementById('result');
-        const sectorAngle = 60; // 360 / 6 = 60 градусов
+        const sectorAngle = 60;
         let hasSpun = false;
 
         spinButton.addEventListener('click', () => {

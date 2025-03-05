@@ -13,12 +13,20 @@
         body {
             margin: 0;
             padding: 20px 20px 100px;
-            background: linear-gradient(135deg, #fc9b1c, #ff6b6b);
+            background: #FCF6EF;
             min-height: 100vh;
         }
 
+        .main-image {
+            width: min(90%, 800px);
+            height: auto;
+            margin: 20px auto 30px;
+            display: block;
+            border-radius: 15px;
+        }
+
         .container {
-            max-width: 500px;
+            max-width: 1200px;
             margin: 0 auto;
             position: relative;
             animation: fadeIn 0.5s ease-in;
@@ -26,7 +34,7 @@
 
         .form-title {
             text-align: center;
-            color: #fff;
+            color: #2d3436;
             margin-bottom: 30px;
             font-size: 2.2em;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
@@ -36,27 +44,22 @@
             margin-bottom: 25px;
         }
 
-        .description-text {
-            text-align: center;
-            color: #fff;
-            font-size: 1.1em;
-            line-height: 1.5;
-            padding: 15px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            backdrop-filter: blur(5px);
-            margin-bottom: 30px;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-
         .file-input {
             position: relative;
-            background: rgba(255,255,255,0.9);
-            border-radius: 12px;
-            padding: 15px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 25px 20px;
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            max-width: 800px;
+            margin: 15px auto;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            color: #666;
+            display: block;
         }
 
         .file-input:hover {
@@ -123,11 +126,24 @@
 
         #submitBtn {
             width: 100%;
-            padding: 18px;
-            background: linear-gradient(45deg, #00b894, #00cec9);
-            font-size: 18px;
+            max-width: 800px;
+            padding: 25px;
+            background: #ABE100;
+            font-size: 20px;
             letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0,184,148,0.3);
+            border-radius: 20px;
+            border: none;
+            display: block;
+            margin: 30px auto;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(171,225,0,0.3);
+        }  
+
+        #submitBtn:hover,
+        .file-input:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
         .modal {
@@ -179,6 +195,45 @@
             }
         }
 
+        @media (min-width: 1600px) {
+            .main-image {
+                width: 1000px;
+                margin: 50px auto 60px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .main-image {
+                width: min(95%, 700px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-image {
+                width: 100%;
+                border-radius: 15px;
+                margin: 20px auto 30px;
+            }
+
+            #submitBtn {
+                padding: 20px;
+                font-size: 18px;
+                border-radius: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-image {
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+
+            #submitBtn {
+                padding: 18px;
+                font-size: 16px;
+            }
+        }
+
         .close-modal {
             position: absolute;
             top: 15px;
@@ -193,21 +248,57 @@
             color: #000;
             transform: rotate(90deg);
         }
+
+        .text-input {
+            position: relative;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            max-width: 800px;
+            margin: 15px auto;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            color: #666;
+        }
+
+        .text-input:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        #descriptionModal .modal-content {
+            max-width: 500px;
+        }
+
+        #descriptionModal textarea {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            margin: 20px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            resize: vertical;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="form-title">Хранители города</h1>
-        
-        <form id="registrationForm">
-            <div class="form-group">
-                <div class="description-text">
-                    🌟 Расскажи о значимом для тебя месте родного города
-                    и получи шанс попасть на съемки Шоу ОК 
-                    и выиграть другие призы!
-                </div>
-            </div>
+        <img src="assets/8.png" alt="Описание места" class="main-image">
 
+        <form id="registrationForm">
+
+            <div class="form-group">
+                <div class="text-input" id="openDescriptionBtn">
+                    ✨ Чем это место для тебя особенно?
+                </div>
+                <input type="hidden" id="descriptionText">
+            </div>
             <div class="form-group">
                 <label class="file-input">
                     <input type="file" id="photo" accept="image/*" required>
@@ -215,9 +306,19 @@
                 </label>
                 <img src="#" alt="Превью фото" class="preview-image" id="preview">
             </div>
-
             <button type="submit" class="nav-button" id="submitBtn">ПОДЕЛИТЬСЯ</button>
         </form>
+    </div>
+
+    <div id="descriptionModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeDescriptionModal()">&times;</span>
+            <h2>Расскажите, чем это место для вас особенно</h2>
+            <textarea id="descriptionInput" 
+                      class="modal-input" 
+                      placeholder="Напишите несколько предложений о том, почему это место важно для вас..."></textarea>
+            <button class="nav-button" onclick="saveDescription()">СОХРАНИТЬ</button>
+        </div>
     </div>
 
     <div id="cityModal" class="modal">
@@ -261,12 +362,19 @@
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const photo = document.getElementById('photo').files[0];
-            
-            if(photo) {
-                document.getElementById('cityModal').style.display = 'block';
-            } else {
+            const description = document.getElementById('descriptionText').value;
+
+            if(!photo) {
                 alert('Пожалуйста, загрузите фото!');
+                return;
             }
+
+            if(!description) {
+                alert('Пожалуйста, укажите описание места!');
+                return;
+            }
+
+            document.getElementById('cityModal').style.display = 'block';
         });
 
         function submitCity() {
@@ -278,22 +386,50 @@
             }
         }
 
-        function closeModal() {
-            document.getElementById('cityModal').style.display = 'none';
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
         }
 
-        document.querySelector('.close-modal').addEventListener('click', closeModal);
+        document.querySelectorAll('.close-modal').forEach(item => {
+            item.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                if(modal) modal.style.display = 'none';
+            });
+        });
         
         document.addEventListener('keydown', (e) => {
-            if(e.key === 'Escape' && document.getElementById('cityModal').style.display === 'block') {
-                closeModal();
+            if(e.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    if(modal.style.display === 'block') {
+                        modal.style.display = 'none';
+                    }
+                });
             }
         });
 
         window.onclick = function(event) {
-            const modal = document.getElementById('cityModal');
-            if(event.target == modal) {
-                modal.style.display = 'none';
+            document.querySelectorAll('.modal').forEach(modal => {
+                if(event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('openDescriptionBtn').addEventListener('click', () => {
+            document.getElementById('descriptionModal').style.display = 'block';
+        });
+
+        function closeDescriptionModal() {
+            document.getElementById('descriptionModal').style.display = 'none';
+        }
+
+        function saveDescription() {
+            const description = document.getElementById('descriptionInput').value;
+            if(description) {
+                document.getElementById('descriptionText').value = description;
+                closeDescriptionModal();
+            } else {
+                alert('Пожалуйста, напишите описание');
             }
         }
     </script>
